@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yokkao/screens/menu.dart';
+import 'package:yokkao/screens/moodentry_form.dart';
+import 'package:yokkao/screens/list_itementry.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -49,11 +51,24 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Tambah Mood'),
             // Bagian redirection ke MoodEntryFormPage
             onTap: () {
-              /*
-              TODO: Buatlah routing ke MoodEntryFormPage di sini,
-              setelah halaman MoodEntryFormPage sudah dibuat.
-              */
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ItemEntryFormPage(),
+                ),
+              );
             },
+          ),
+          ListTile(
+              leading: const Icon(Icons.add_reaction_rounded),
+              title: const Text('Daftar Mood'),
+              onTap: () {
+                  // Route menu ke halaman mood
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ItemEntryPage()),
+                  );
+              },
           ),
         ],
       ),

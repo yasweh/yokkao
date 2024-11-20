@@ -3,15 +3,15 @@ import 'package:yokkao/widgets/left_drawer.dart';
 import 'package:yokkao/widgets/mood_card.dart';
 
 class MyHomePage extends StatelessWidget {
-    final String npm = '5000000000'; // NPM
-    final String name = 'Gedagedi Gedagedago'; // Nama
-    final String className = 'PBP S'; // Kelas
+    final String npm = 'Best Store Eva'; // NPM
+    final String name = 'Yokkao'; // Nama
+    final String className = 'Big Sale'; // Kelas
 
     MyHomePage({super.key});
 
     final List<ItemHomepage> items = [
-      ItemHomepage("Lihat Mood", Icons.mood),
-      ItemHomepage("Tambah Mood", Icons.add),
+      ItemHomepage("Lihat Item", Icons.mood),
+      ItemHomepage("Tambah Item", Icons.add),
       ItemHomepage("Logout", Icons.logout),
     ];
 
@@ -23,7 +23,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         // Judul aplikasi "Mental Health Tracker" dengan teks putih dan tebal.
         title: const Text(
-          'Mental Health Tracker',
+          'Yokkao',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -46,9 +46,9 @@ class MyHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InfoCard(title: 'NPM', content: npm),
+                InfoCard(title: 'Our Tags', content: npm),
                 InfoCard(title: 'Name', content: name),
-                InfoCard(title: 'Class', content: className),
+                InfoCard(title: 'Deals', content: className),
               ],
             ),
 
@@ -65,7 +65,7 @@ class MyHomePage extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 16.0),
                     child: Text(
-                      'Welcome to Mental Health Tracker',
+                      'Welcome to Yokkao',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,

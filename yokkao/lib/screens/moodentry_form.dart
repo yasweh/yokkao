@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:yokkao/widgets/left_drawer.dart';
+import 'package:yokkao/screens/menu.dart';
+import 'dart:convert';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
-class MoodEntryFormPage extends StatefulWidget {
-  const MoodEntryFormPage({super.key});
+class ItemEntryFormPage extends StatefulWidget {
+  const ItemEntryFormPage({super.key});
 
   @override
-  State<MoodEntryFormPage> createState() => _MoodEntryFormPageState();
+  State<ItemEntryFormPage> createState() => _ItemEntryFormPageState();
 }
 
-class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
+class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
   String _mood = "";
   String _feelings = "";
@@ -16,11 +20,12 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Form Tambah Mood Kamu Hari ini',
+            'Form Tambah Item',
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -37,8 +42,8 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Mood",
-                    labelText: "Mood",
+                    hintText: "Item",
+                    labelText: "Item",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -50,7 +55,7 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
                   },
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Mood tidak boleh kosong!";
+                      return "Item tidak boleh kosong!";
                     }
                     return null;
                   },
@@ -83,8 +88,8 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Mood intensity",
-                    labelText: "Mood intensity",
+                    hintText: "Item intensity",
+                    labelText: "Item intensity",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -96,10 +101,10 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
                   },
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Mood intensity tidak boleh kosong!";
+                      return "Item intensity tidak boleh kosong!";
                     }
                     if (int.tryParse(value) == null) {
-                      return "Mood intensity harus berupa angka!";
+                      return "Item intensity harus berupa angka!";
                     }
                     return null;
                   },
@@ -114,35 +119,38 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
                       backgroundColor: WidgetStateProperty.all(
                           Theme.of(context).colorScheme.primary),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Mood berhasil tersimpan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Mood: $_mood'),
-                                    // TODO: Munculkan value-value lainnya
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
+                        // Kirim ke Django dan tunggu respons
+                        // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                        final response = await request.postJson(
+                            "http://10.0.2.2/create-flutter/",
+                            jsonEncode(<String, String>{
+                                'mood': _mood,
+                                'mood_intensity': _moodIntensity.toString(),
+                                'feelings': _feelings,
+                            // TODO: Sesuaikan field data sesuai dengan aplikasimu
+                            }),
                         );
-                      }
+                        if (context.mounted) {
+                            if (response['status'] == 'success') {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                content: Text("Item baru berhasil disimpan!"),
+                                ));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => MyHomePage()),
+                                );
+                            } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                    content:
+                                        Text("Terdapat kesalahan, silakan coba lagi."),
+                                ));
+                            }
+                        }
+                    }
                     },
                     child: const Text(
                       "Save",

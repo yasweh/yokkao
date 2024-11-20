@@ -34,10 +34,10 @@ class ItemCard extends StatelessWidget {
             );
 
             // Navigate ke route yang sesuai (tergantung jenis tombol)
-            if (item.name == "Tambah Mood") {
+            if (item.name == "Tambah Item") {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MoodEntryFormPage()),
+                MaterialPageRoute(builder: (context) => ItemEntryFormPage()),
               );
           }
         },
