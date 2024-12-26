@@ -10,9 +10,9 @@ class MyHomePage extends StatelessWidget {
     MyHomePage({super.key});
 
     final List<ItemHomepage> items = [
-      ItemHomepage("Lihat Item", Icons.mood),
-      ItemHomepage("Tambah Item", Icons.add),
-      ItemHomepage("Logout", Icons.logout),
+      ItemHomepage("Lihat Item", Icons.mood, Colors.blue),
+      ItemHomepage("Tambah Item", Icons.add, Colors.red),
+      ItemHomepage("Logout", Icons.logout, Colors.green),
     ];
 
   @override
@@ -21,7 +21,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       // AppBar adalah bagian atas halaman yang menampilkan judul.
       appBar: AppBar(
-        // Judul aplikasi "Mental Health Tracker" dengan teks putih dan tebal.
+        // Judul aplikasi dengan teks putih dan tebal.
         title: const Text(
           'Yokkao',
           style: TextStyle(

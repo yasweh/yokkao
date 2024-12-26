@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yokkao/screens/login.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:yokkao/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,14 +19,14 @@ class MyApp extends StatelessWidget {
         return request;
       },
       child: MaterialApp(
-        title: 'Mental Health Tracker',
+        title: 'Yokkao',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.deepPurple,
-          ).copyWith(secondary: Colors.deepPurple[400]),
+            primarySwatch: Colors.red,
+          ).copyWith(secondary: Colors.blue[400]),
         ),
-        home: const LoginPage(),
+        home: MyHomePage(),
       ),
     );
   }

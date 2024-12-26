@@ -48,7 +48,7 @@ class _ItemEntryPageState extends State<ItemEntryPage> {
           } else if (!snapshot.hasData || snapshot.data.isEmpty) {
             return const Center(
               child: Text(
-                'Belum ada data mood pada mental health tracker.',
+                'Belum ada data item pada yokkao.',
                 style: TextStyle(fontSize: 20, color: Color(0xff59A5D8)),
               ),
             );
@@ -75,16 +75,16 @@ class _ItemEntryPageState extends State<ItemEntryPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${snapshot.data![index].fields.mood}",
+                      "${snapshot.data![index].fields.item_name}",
                       style: const TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text("${snapshot.data![index].fields.feelings}"),
+                    Text("${snapshot.data![index].fields.description}"),
                     const SizedBox(height: 10),
-                    Text("${snapshot.data![index].fields.moodIntensity}"),
+                    Text("${snapshot.data![index].fields.price}"),
                     const SizedBox(height: 10),
                     Text("${snapshot.data![index].fields.time}")
                   ],

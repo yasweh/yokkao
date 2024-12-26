@@ -14,9 +14,9 @@ class ItemEntryFormPage extends StatefulWidget {
 
 class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String _mood = "";
-  String _feelings = "";
-  int _moodIntensity = 0;
+  String _itemname = "";
+  String _description = "";
+  int _price = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _mood = value!;
+                      _itemname = value!;
                     });
                   },
                   validator: (String? value) {
@@ -65,20 +65,20 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Feelings",
-                    labelText: "Feelings",
+                    hintText: "Description",
+                    labelText: "Description",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _feelings = value!;
+                      _description = value!;
                     });
                   },
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Feelings tidak boleh kosong!";
+                      return "Deskripsi tidak boleh kosong!";
                     }
                     return null;
                   },
@@ -88,23 +88,23 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Item intensity",
-                    labelText: "Item intensity",
+                    hintText: "Price",
+                    labelText: "Price",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _moodIntensity = int.tryParse(value!) ?? 0;
+                      _price = int.tryParse(value!) ?? 0;
                     });
                   },
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Item intensity tidak boleh kosong!";
+                      return "Price tidak boleh kosong!";
                     }
                     if (int.tryParse(value) == null) {
-                      return "Item intensity harus berupa angka!";
+                      return "Price harus berupa angka!";
                     }
                     return null;
                   },
@@ -124,11 +124,11 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                         // Kirim ke Django dan tunggu respons
                         // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                         final response = await request.postJson(
-                            "http://10.0.2.2/create-flutter/",
+                            "http://127.0.0.1:8000/create-flutter/",
                             jsonEncode(<String, String>{
-                                'mood': _mood,
-                                'mood_intensity': _moodIntensity.toString(),
-                                'feelings': _feelings,
+                                'item_name': _itemname,
+                                'price': _price.toString(),
+                                'description': _description,
                             // TODO: Sesuaikan field data sesuai dengan aplikasimu
                             }),
                         );

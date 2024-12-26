@@ -18,7 +18,7 @@ class LeftDrawer extends StatelessWidget {
             child: const Column(
               children: [
                 Text(
-                  'Mental Health Tracker',
+                  'Yokkao',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
@@ -28,7 +28,7 @@ class LeftDrawer extends StatelessWidget {
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 Text(
-                  "Ayo jaga kesehatan mentalmu setiap hari disini!",
+                  "Ayo beli item menarik disini!",
                   // TODO: Tambahkan gaya teks dengan center alignment, font ukuran 15, warna putih, dan weight biasa
                 ),
               ],
@@ -48,7 +48,7 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.mood),
-            title: const Text('Tambah Mood'),
+            title: const Text('Tambah Item'),
             // Bagian redirection ke MoodEntryFormPage
             onTap: () {
               Navigator.push(
@@ -61,7 +61,7 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
               leading: const Icon(Icons.add_reaction_rounded),
-              title: const Text('Daftar Mood'),
+              title: const Text('Daftar Item'),
               onTap: () {
                   // Route menu ke halaman mood
                   Navigator.push(
